@@ -54,23 +54,23 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
                 )
             }_vmess_${Random.nextInt(0, 7000)}"
         )
-        sb.appendLine("${idnt}  server: ${jo.optString("add", jo.optString("host", ""))}")
-        sb.appendLine("${idnt}  port: ${jo.getString("port")}")
-        sb.appendLine("${idnt}  type: vmess")
-        sb.appendLine("${idnt}  uuid: ${jo.getString("id")}")
-        sb.appendLine("${idnt}  alterId: ${jo.optString("aid", "0")}")
-        sb.appendLine("${idnt}  cipher: ${jo.optString("scy", "auto")}")
-        sb.appendLine("${idnt}  tls: ${jo.optString("tls", "") == "tls"}")
-        sb.appendLine("${idnt}  servername: ${jo.optString("sni", jo.optString("add", ""))}")
-        sb.appendLine("${idnt}  skip-cert-verify: true")
-        sb.appendLine("${idnt}  udp: true")
+        sb.appendLine("    server: ${jo.optString("add", jo.optString("host", ""))}")
+        sb.appendLine("    port: ${jo.getString("port")}")
+        sb.appendLine("    type: vmess")
+        sb.appendLine("    uuid: ${jo.getString("id")}")
+        sb.appendLine("    alterId: ${jo.optString("aid", "0")}")
+        sb.appendLine("    cipher: ${jo.optString("scy", "auto")}")
+        sb.appendLine("    tls: ${jo.optString("tls", "") == "tls"}")
+        sb.appendLine("    servername: ${jo.optString("sni", jo.optString("add", ""))}")
+        sb.appendLine("    skip-cert-verify: true")
+        sb.appendLine("    udp: true")
         when (jo.optString("net", "tcp")) {
             "ws" -> {
-                sb.appendLine("${idnt}  network: ws")
-                sb.appendLine("${idnt}  ws-opts:")
-                sb.appendLine("${idnt}    path: ${jo.optString("path", "/")}")
-                sb.appendLine("${idnt}    headers:")
-                sb.append("${idnt}      Host: ${jo.getString("host")}")
+                sb.appendLine("    network: ws")
+                sb.appendLine("    ws-opts:")
+                sb.appendLine("      path: ${jo.optString("path", "/")}")
+                sb.appendLine("      headers:")
+                sb.append("        Host: ${jo.getString("host")}")
             }
 
             "grpc" -> {
