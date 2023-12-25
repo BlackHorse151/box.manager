@@ -54,42 +54,42 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
                 )
             }_vmess_${Random.nextInt(0, 7000)}"
         )
-        sb.appendLine("$idnt  server: ${jo.optString("add", jo.optString("host", ""))}")
-        sb.appendLine("$idnt  port: ${jo.getString("port")}")
-        sb.appendLine("$idnt  type: vmess")
-        sb.appendLine("$idnt  uuid: ${jo.getString("id")}")
-        sb.appendLine("$idnt  alterId: ${jo.optString("aid", "0")}")
-        sb.appendLine("$idnt  cipher: ${jo.optString("scy", "auto")}")
-        sb.appendLine("$idnt  tls: ${jo.optString("tls", "") == "tls"}")
-        sb.appendLine("$idnt  servername: ${jo.optString("sni", jo.optString("add", ""))}")
-        sb.appendLine("$idnt  skip-cert-verify: true")
-        sb.appendLine("$idnt  udp: true")
+        sb.appendLine("${idnt}  server: ${jo.optString("add", jo.optString("host", ""))}")
+        sb.appendLine("${idnt}  port: ${jo.getString("port")}")
+        sb.appendLine("${idnt}  type: vmess")
+        sb.appendLine("${idnt}  uuid: ${jo.getString("id")}")
+        sb.appendLine("${idnt}  alterId: ${jo.optString("aid", "0")}")
+        sb.appendLine("${idnt}  cipher: ${jo.optString("scy", "auto")}")
+        sb.appendLine("${idnt}  tls: ${jo.optString("tls", "") == "tls"}")
+        sb.appendLine("${idnt}  servername: ${jo.optString("sni", jo.optString("add", ""))}")
+        sb.appendLine("${idnt}  skip-cert-verify: true")
+        sb.appendLine("${idnt}  udp: true")
         when (jo.optString("net", "tcp")) {
             "ws" -> {
-                sb.appendLine("$idnt  network: ws")
-                sb.appendLine("$idnt  ws-opts:")
-                sb.appendLine("$idnt    path: ${jo.optString("path", "/")}")
-                sb.appendLine("$idnt    headers:")
-                sb.append("$idnt      Host: ${jo.getString("host")}")
+                sb.appendLine("${idnt}  network: ws")
+                sb.appendLine("${idnt}  ws-opts:")
+                sb.appendLine("${idnt}    path: ${jo.optString("path", "/")}")
+                sb.appendLine("${idnt}    headers:")
+                sb.append("${idnt}      Host: ${jo.getString("host")}")
             }
 
             "grpc" -> {
-                sb.appendLine("$idnt  network: grpc")
-                sb.appendLine("$idnt  grpc-opts:")
-                sb.append("$idnt    grpc-service-name: ${jo.getString("path")}")
+                sb.appendLine("${idnt}  network: grpc")
+                sb.appendLine("${idnt}  grpc-opts:")
+                sb.append("${idnt}    grpc-service-name: ${jo.getString("path")}")
             }
 
             "h2" -> {
-                sb.appendLine("$idnt  network: h2")
-                sb.appendLine("$idnt  h2-opts:")
-                sb.append("$idnt    path: ${jo.optString("path", "/")}")
+                sb.appendLine("${idnt}  network: h2")
+                sb.appendLine("${idnt}  h2-opts:")
+                sb.append("${idnt}    path: ${jo.optString("path", "/")}")
             }
 
             "tcp" -> {
                 if (jo.optString("type", "") == "http") {
-                    sb.appendLine("$idnt  network: http")
-                    sb.appendLine("$idnt  http-opts:")
-                    sb.append("$idnt    path: ${jo.optString("path", "/")}")
+                    sb.appendLine("${idnt}  network: http")
+                    sb.appendLine("${idnt}  http-opts:")
+                    sb.append("${idnt}    path: ${jo.optString("path", "/")}")
                 }
             }
 
@@ -112,13 +112,13 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
                 )
             }"
         )
-        sb.appendLine("$idnt  server: ${uri.host ?: ""}")
-        sb.appendLine("$idnt  port: ${uri.port}")
-        sb.appendLine("$idnt  type: vless")
+        sb.appendLine("${idnt}  server: ${uri.host ?: ""}")
+        sb.appendLine("${idnt}  port: ${uri.port}")
+        sb.appendLine("${idnt}  type: vless")
         if (uri.userInfo == null || uri.userInfo!!.isEmpty()) throw Exception("no user info")
-        sb.appendLine("$idnt  uuid: ${uri.userInfo}")
+        sb.appendLine("${idnt}  uuid: ${uri.userInfo}")
         sb.appendLine(
-            "$idnt  tls: ${
+            "${idnt}  tls: ${
                 (ConfigUtil.getQueryParams(
                     uri,
                     "security"
@@ -126,20 +126,20 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
             }"
         )
         sb.appendLine(
-            "$idnt  servername: ${
+            "${idnt}  servername: ${
                 ConfigUtil.getQueryParams(
                     uri,
                     "sni"
                 ) ?: ConfigUtil.getQueryParams(uri, "host") ?: uri.host!!
             }"
         )
-        sb.appendLine("$idnt  skip-cert-verify: true")
-        sb.appendLine("$idnt  udp: true")
+        sb.appendLine("${idnt}  skip-cert-verify: true")
+        sb.appendLine("${idnt}  udp: true")
         if (ConfigUtil.getQueryParams(
                 uri,
                 "flow"
             ) != null
-        ) sb.appendLine("$idnt  flow: ${ConfigUtil.getQueryParams(uri, "flow")!!}")
+        ) sb.appendLine("${idnt}  flow: ${ConfigUtil.getQueryParams(uri, "flow")!!}")
         val type = ConfigUtil.getQueryParams(uri, "type") ?: "tcp"
         val decodePath =
             URLDecoder.decode(ConfigUtil.getQueryParams(uri, "path") ?: "", "UTF-8")
@@ -147,21 +147,21 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
             URLDecoder.decode(ConfigUtil.getQueryParams(uri, "host") ?: "", "UTF-8")
         when (type) {
             "ws" -> {
-                sb.appendLine("$idnt  network: ws")
-                sb.appendLine("$idnt  ws-opts:")
+                sb.appendLine("${idnt}  network: ws")
+                sb.appendLine("${idnt}  ws-opts:")
 
-                sb.appendLine("$idnt    path: $decodePath")
-                sb.appendLine("$idnt    headers:")
-                sb.append("$idnt      Host: $decodeHost")
+                sb.appendLine("${idnt}    path: $decodePath")
+                sb.appendLine("${idnt}    headers:")
+                sb.append("${idnt}      Host: $decodeHost")
             }
 
             "tcp" -> {}
             "http" -> {}
             "grpc" -> {
-                sb.appendLine("$idnt  network: grpc")
-                sb.appendLine("$idnt  grpc-opts:")
+                sb.appendLine("${idnt}  network: grpc")
+                sb.appendLine("${idnt}  grpc-opts:")
                 sb.append(
-                    "$idnt    grpc-service-name: ${
+                    "${idnt}    grpc-service-name: ${
                         ConfigUtil.getQueryParams(
                             uri,
                             "serviceName"
@@ -189,28 +189,28 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
                 )
             }"
         )
-        sb.appendLine("$idnt  server: ${uri.host ?: ""}")
-        sb.appendLine("$idnt  port: ${uri.port}")
-        sb.appendLine("$idnt  type: trojan")
+        sb.appendLine("${idnt}  server: ${uri.host ?: ""}")
+        sb.appendLine("${idnt}  port: ${uri.port}")
+        sb.appendLine("${idnt}  type: trojan")
         if (uri.userInfo == null || uri.userInfo!!.isEmpty()) throw Exception("no user info")
-        sb.appendLine("$idnt  password: ${uri.userInfo}")
+        sb.appendLine("${idnt}  password: ${uri.userInfo}")
         sb.appendLine(
-            "$idnt  sni: ${
+            "${idnt}  sni: ${
                 ConfigUtil.getQueryParams(
                     uri,
                     "sni"
                 ) ?: ConfigUtil.getQueryParams(uri, "host") ?: uri.host!!
             }"
         )
-        sb.appendLine("$idnt  skip-cert-verify: true")
-        sb.appendLine("$idnt  udp: true")
+        sb.appendLine("${idnt}  skip-cert-verify: true")
+        sb.appendLine("${idnt}  udp: true")
         if (ConfigUtil.getQueryParams(
                 uri,
                 "flow"
             ) != null
-        ) sb.appendLine("$idnt  flow: ${ConfigUtil.getQueryParams(uri, "flow")!!}")
+        ) sb.appendLine("${idnt}  flow: ${ConfigUtil.getQueryParams(uri, "flow")!!}")
         val alpnStr = URLDecoder.decode(ConfigUtil.getQueryParams(uri, "alpn") ?: "", "UTF-8")
-        if (alpnStr != "") sb.appendLine("$idnt  alpn: ${alpnStr.split(",")}")
+        if (alpnStr != "") sb.appendLine("${idnt}  alpn: ${alpnStr.split(",")}")
 
         val type = ConfigUtil.getQueryParams(uri, "type") ?: "tcp"
         val decodePath =
@@ -220,21 +220,21 @@ class ClashData(private val masuk: String = "", private val indent: Boolean = fa
 
         when (type) {
             "ws" -> {
-                sb.appendLine("$idnt  network: ws")
-                sb.appendLine("$idnt  ws-opts:")
+                sb.appendLine("${idnt}  network: ws")
+                sb.appendLine("${idnt}  ws-opts:")
 
-                sb.appendLine("$idnt    path: $decodePath")
-                sb.appendLine("$idnt    headers:")
-                sb.append("$idnt      Host: $decodeHost")
+                sb.appendLine("${idnt}    path: $decodePath")
+                sb.appendLine("${idnt}    headers:")
+                sb.append("${idnt}      Host: $decodeHost")
             }
 
             "tcp" -> {}
             "http" -> {}
             "grpc" -> {
-                sb.appendLine("$idnt  network: grpc")
-                sb.appendLine("$idnt  grpc-opts:")
+                sb.appendLine("${idnt}  network: grpc")
+                sb.appendLine("${idnt}  grpc-opts:")
                 sb.append(
-                    "$idnt    grpc-service-name: ${
+                    "${idnt}    grpc-service-name: ${
                         ConfigUtil.getQueryParams(
                             uri,
                             "serviceName"
